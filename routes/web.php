@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Student;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome.guest');
+    return view('guest.welcome');
 });
 
 // Route::get('/dashboard', function () {
@@ -30,7 +33,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
+    Route::resource('students', StudentController::class)->parameters(['students' => 'project:registration_number']);
 });
 
 require __DIR__.'/auth.php';
